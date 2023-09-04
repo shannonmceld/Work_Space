@@ -590,7 +590,7 @@ def login():
         result = bcrypt.checkpw(password, hash)
         # Ensure username exists and password is correct
         if len(rows) != 1 or bool(bytes == False):
-            flash(f"Wrong username or password!{bytes,hash}")
+            flash(f"Wrong username or password!")
             return render_template("login.html")
 
         # Remember which user has logged in
