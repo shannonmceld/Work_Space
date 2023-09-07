@@ -1,0 +1,109 @@
+
+@app.route("/verify_iden", methods=["GET", "POST"])
+@login_required
+def verify_iden():
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+        password = request.form.get("password")
+
+        # Ensure password was submitted
+        if not request.form.get("password"):
+            flash(f"Must provide password!")
+            return render_template("verify_iden.html")
+
+        # query for password in accounts
+        check_password = db.execute(
+            "SELECT hash FROM accounts WHERE id = ?",
+            session["user_id"],
+        )
+
+        # ensure user typed correct password
+        if len(check_password) != 1:
+            flash(f"Wrong Password")
+            return render_template("verify_iden.html")
+
+        check_password = check_password[0]["hash"]
+
+        # converting password to array of bytes
+        bytes = password.encode("utf-8")
+
+        # generating the salt
+        salt = bcrypt.gensalt()
+
+        # Hashing the password
+        hash = bcrypt.hashpw(bytes, salt)
+
+        # checking password
+        result = bcrypt.checkpw(check_password, hash)
+
+        if bool(bytes == False):
+            flash(f"Wrong username or password!")
+            return render_template("verify_iden.html")
+
+        else:
+            return render_template("detail.html")
+
+    else:
+        return render_template("verify_iden.html")
+
+
+
+
+
+
+                # Ensure Query returned
+        if len(accounts) != 1:
+            flash(f"No such EMAIL!")
+            return render_template("forgot_password.html")
+
+        # Ensure correct email was querried
+        elif bool(accounts[0]["email"]) == False:
+            flash(f"No Such Email!")
+            return render_template("forgot_password.html")
+
+        password = request.form.get("password")
+        verify_password = request.form.get("verify_password")
+
+        # Ensure password was submitted
+        if not password:
+            flash(f"Must provide password!")
+            return render_template("forgot_password.html")
+
+        # Ensure password was submitted
+        elif not verify_password:
+            flash(f"Must provide password!")
+            return render_template("forgot_password.html")
+
+        # ensure password match
+        elif password != verify_password:
+            flash(f"Password must Match!")
+            return render_template("forgot_password.html")
+
+        # ensure password is correct pattern
+        elif validate(password) == False:
+            flash(
+                f"Password Not VALID. Password should contain a Uppercase, a Lowercase, a Digit and a Special Character"
+            )
+            return render_template("forgot_password.html")
+
+        # converting password to array of bytes
+        bytes = password.encode("utf-8")
+
+        # generating the salt
+        salt = bcrypt.gensalt()
+
+        # Hashing the password
+        hash_password = bcrypt.hashpw(bytes, salt)
+
+        # Edit password in table
+        db.execute(
+            "Update accounts SET hash = :hash_password WHERE email = :email",
+            hash_password=hash_password,
+            email=email,
+        )
+
+        # alert users of new password
+        flash(f"Your Password has been changed!")
+
+        # redirect to index
+        return redirect("/")

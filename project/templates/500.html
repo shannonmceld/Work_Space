@@ -1,0 +1,15 @@
+{% extends "header.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block main %}
+<h1>Oops! Looks like something went Wrong.</h1>
+<h2>Developers are working on this problem now</h2>
+{% if session["user_id"] %}
+<a href="/index"><p>Click Here</a>To refresh the page</p>
+{% else %}
+<a href="/login"><p>Click Here</a>To refresh the page</p>
+{% endif %}
+{% endblock %}
