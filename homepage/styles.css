@@ -1,0 +1,107 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Define default layout */
+* {
+    font-family: 'Arial Narrow' , monospace;
+    font-size 25px;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin:30px;
+    color: #800080;
+
+}
+
+p{
+    margin: 35px;
+    font-size: 25px;
+    color: #8B008B;
+}
+
+b {
+    margin: 35px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 19px;
+}
+/* For index.html */
+/* For the navigation bar on other pages */
+
+.navbar {
+    position: auto;
+    background-color: #4B0082;
+    overflow: hidden;
+    float: center;
+    font-size: 35px;
+}
+
+nav ul {
+    margin: none;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin: 20px;
+    position: center;
+}
+
+nav a {
+    color: rgb(181, 51, 138);
+    padding: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    color: white;
+    background-color: rgb(181, 51, 138);
+    text-decoration: none;
+}
+
+
+
+/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+@media screen and (max-width: 600px)
+{
+    .navbar a, .topnav-right {
+      float: none;
+      display: block;
+    }
+
+    .navbar-centered a {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+
+}
+/* For the footer on all pages */
+
+footer {
+    color: #8A2BE2;
+    text-align: center;
+    margin: 5vh;
+}
+
+.selectDisable {
+    user-select: none;
+}
+
+.figure {
+    border: 1px solid white;
+    border-radius: 0%; }
+
+  @media (max-width: 150px) {
+    .figure {
+      width: 40%;
+      display: auto;
+      margin: auto; }
+
+    .add-margin {
+      text-align: center; } }

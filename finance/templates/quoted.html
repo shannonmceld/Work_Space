@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+
+<div class="section">
+
+    <h1>Quote</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Symbol</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if quotes %}
+            <tr>
+                <td>{{ quotes['name'] }}</td>
+                <td>{{ quotes['price']|usd }}</td>
+                <td>{{ quotes['symbol'] }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
